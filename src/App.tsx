@@ -5,9 +5,19 @@ import { Hero } from './components/hero/Hero'
 import { Works } from './components/sections/Works'
 import { Services } from './components/sections/Services'
 import { About } from './components/sections/About'
+import { Achievements } from './components/sections/Achievements'
 import { GitHubContributions } from './components/sections/GitHubContributions'
+import { Contact } from './components/sections/Contact'
 
-const sectionIds = ['home', 'works', 'services', 'about', 'github', 'contact'] as const
+const sectionIds = [
+  'home',
+  'works',
+  'services',
+  'about',
+  'achievements',
+  'github',
+  'contact',
+] as const
 
 function App() {
   const [activeSection, setActiveSection] = useState<string>('home')
@@ -56,7 +66,9 @@ function App() {
         <Works />
         <Services />
         <About />
+        <Achievements />
         <GitHubContributions />
+        <Contact />
       </main>
       <Footer />
     </>

@@ -24,55 +24,54 @@ export function Header({ activeSection, isDark, toggleTheme }: HeaderProps) {
   const navHrefToId = (href: string) => href.replace('#', '')
 
   return (
-    <header className={`sticky top-0 z-50 backdrop-blur-md ${menuOpen ? 'bg-page' : 'bg-page/80'}`}>
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        {/* Logo */}
-        <a
-          href="#home"
-          className="text-xl font-extrabold tracking-tight text-text-primary"
-          onClick={handleNavClick}
-        >
-          {site.logo}
-        </a>
+    <>
+      {/* Header bar — always on top */}
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-page/80">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+          {/* Logo */}
+          <a
+            href="#home"
+            className="text-xl font-extrabold tracking-tight text-text-primary relative z-[60]"
+            onClick={handleNavClick}
+          >
+            {site.logo}
+          </a>
 
-        {/* Desktop: 3D Pill Navigation */}
-        <div className="hidden lg:flex items-center justify-center">
-          <PillNav activeSection={activeSection} />
-        </div>
-
-        {/* Right side */}
-        <div className="flex items-center gap-4">
-          <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
-          
-          <div className="hidden sm:inline-block">
-            <FlowButton text="LET'S TALK" href="#contact" onClick={handleNavClick} />
+          {/* Desktop: 3D Pill Navigation */}
+          <div className="hidden lg:flex items-center justify-center">
+            <PillNav activeSection={activeSection} />
           </div>
 
-          <button
-            type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 dark:border-gray-800 bg-surface text-text-primary lg:hidden"
-            onClick={() => setMenuOpen((o) => !o)}
-            aria-expanded={menuOpen}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
-      </div>
+          {/* Right side */}
+          <div className="flex items-center gap-3 relative z-[60]">
+            <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
 
-      {/* Mobile menu */}
+            <div className="hidden sm:inline-block">
+              <FlowButton text="LET'S TALK" href="#contact" onClick={handleNavClick} />
+            </div>
+
+            <button
+              type="button"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-text-primary lg:hidden transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-expanded={menuOpen}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            >
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Fullscreen mobile menu overlay */}
       {menuOpen && (
         <div
-          className="lg:hidden overflow-y-auto"
-          style={{
-            height: 'calc(100vh - 65px)',
-            backgroundColor: 'var(--color-page)',
-          }}
+          className="mobile-menu-overlay lg:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
         >
-          <nav className="flex flex-col gap-2 px-5 py-8" style={{ animation: 'mobileMenuSlideIn 0.3s ease-out' }}>
+          <nav className="mobile-menu-nav">
             {site.nav.map((item, index) => {
               const id = navHrefToId(item.href)
               const isActive = activeSection === id
@@ -81,45 +80,27 @@ export function Header({ activeSection, isDark, toggleTheme }: HeaderProps) {
                   key={item.href}
                   href={item.href}
                   onClick={handleNavClick}
-                  className="mobile-nav-link"
+                  className="mobile-menu-link"
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '16px 20px',
-                    borderRadius: '16px',
-                    fontSize: '1.1rem',
-                    fontWeight: isActive ? 700 : 500,
-                    color: isActive ? 'var(--color-accent)' : 'var(--color-text-primary)',
-                    backgroundColor: isActive ? 'var(--color-surface)' : 'transparent',
-                    boxShadow: isActive ? '0 2px 12px rgba(0,0,0,0.06)' : 'none',
-                    border: isActive ? '1px solid var(--color-border)' : '1px solid transparent',
-                    transition: 'all 0.2s ease',
-                    textDecoration: 'none',
-                    animation: `mobileNavItemIn 0.35s ease-out ${index * 0.06}s both`,
+                    animationDelay: `${index * 0.07}s`,
+                    opacity: isActive ? 1 : 0.75,
                   }}
                 >
-                  {isActive && (
-                    <span
-                      style={{
-                        width: '6px',
-                        height: '6px',
-                        borderRadius: '50%',
-                        backgroundColor: 'var(--color-accent)',
-                        flexShrink: 0,
-                      }}
-                    />
-                  )}
                   {item.label}
                 </a>
               )
             })}
-            <div className="mt-6" style={{ animation: `mobileNavItemIn 0.35s ease-out ${site.nav.length * 0.06}s both` }}>
-              <FlowButton text="LET'S TALK" href="#contact" onClick={handleNavClick} className="w-full justify-center" />
-            </div>
+            <a
+              href="#contact"
+              onClick={handleNavClick}
+              className="mobile-menu-cta"
+              style={{ animationDelay: `${site.nav.length * 0.07}s` }}
+            >
+              LET'S TALK
+            </a>
           </nav>
         </div>
       )}
-    </header>
+    </>
   )
 }

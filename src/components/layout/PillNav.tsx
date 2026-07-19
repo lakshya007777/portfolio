@@ -30,7 +30,7 @@ export function PillNav({ activeSection }: PillNavProps) {
   useEffect(() => {
     if (hovering) {
       setExpanded(true)
-      pillWidth.set(520)
+      pillWidth.set(680)
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current)
       }

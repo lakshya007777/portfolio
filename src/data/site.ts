@@ -1,22 +1,49 @@
+export type SocialType = 'email' | 'linkedin' | 'github' | 'behance'
+
+export type SocialLink = {
+  label: string
+  href: string
+  type: SocialType
+}
+
+export type Project = {
+  title: string
+  description: string
+  tags: readonly string[]
+  image: string
+  href: string
+  bgColor: string
+  problem?: string
+  features?: readonly string[]
+  githubUrl?: string
+  liveUrl?: string
+}
+
 export const site = {
   logo: 'laksh.',
   name: 'LAKSHYA KUMAR SINGH',
+  displayName: 'Lakshya Kumar Singh',
+  shortName: 'Lakshya Singh',
   greeting: "Hello, I'm",
   tagline: 'DEVELOPER • CREATOR • INNOVATOR',
   bio: 'Building products, solving problems, and learning every day. Exploring the future of web development, game design, and technology.',
-  email: 'lakshya@example.com',
-  portrait: '/portrait.png',
+  email: '',
+  resumeUrl: '',
+  github: {
+    username: 'lakshya007777',
+    href: 'https://github.com/lakshya007777',
+  },
+  portrait: '/Portrait.png',
   socials: [
-    { label: 'Email', href: 'mailto:lakshya@example.com', type: 'email' as const },
-    { label: 'LinkedIn', href: 'https://linkedin.com', type: 'linkedin' as const },
-    { label: 'GitHub', href: 'https://github.com', type: 'github' as const },
-    { label: 'Behance', href: 'https://behance.net', type: 'behance' as const },
-  ],
+    { label: 'GitHub', href: 'https://github.com/lakshya007777', type: 'github' },
+  ] as SocialLink[],
   nav: [
     { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
+    { label: 'Works', href: '#works' },
     { label: 'Services', href: '#services' },
-    { label: 'My Work', href: '#works' },
+    { label: 'About', href: '#about' },
+    { label: 'Achievements', href: '#achievements' },
+    { label: 'GitHub', href: '#github' },
   ],
   serviceCards: [
     {
@@ -96,7 +123,7 @@ export const site = {
       href: '#',
       bgColor: '#fce7f3',
     },
-  ],
+  ] satisfies readonly Project[],
   about: {
     title: 'About',
     subtitle: 'Designer & developer crafting thoughtful digital experiences.',
@@ -111,6 +138,41 @@ export const site = {
       '3D Design',
       'Prototyping',
       'Design Systems',
+    ],
+    skillGroups: [
+      {
+        title: 'Frontend',
+        icon: 'layout',
+        technologies: ['React', 'TypeScript', 'Tailwind CSS'],
+      },
+      {
+        title: 'Languages',
+        icon: 'code',
+        technologies: ['C/C++', 'TypeScript'],
+      },
+      {
+        title: 'Tools and Design',
+        icon: 'palette',
+        technologies: ['Figma', 'UI/UX', 'Prototyping', 'Design Systems', '3D Design'],
+      },
+      {
+        title: 'Currently Learning',
+        icon: 'sparkles',
+        technologies: ['Advanced technologies'],
+      },
+    ],
+    journey: [
+      'Started Programming',
+      'Learned C/C++',
+      'Started Web Development',
+      'Hackathon Winner',
+      'Building Full Stack Applications',
+      'Currently Learning Advanced Technologies',
+    ],
+    achievements: [
+      { value: '25+', label: 'Hackathons participated' },
+      { value: '30+', label: 'Projects completed' },
+      { value: '3+', label: 'Years of experience' },
     ],
     stats: [
       { value: '3+', label: 'Years experience' },
