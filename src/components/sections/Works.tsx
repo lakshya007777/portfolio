@@ -69,7 +69,7 @@ export function Works() {
             ))}
           </div>
           <div className="works-marquee-group" aria-hidden="true">
-            {projects.map((project, i) => (
+            {projects.map((project) => (
               <div
                 key={`${project.title}-2`}
                 className="work-card"

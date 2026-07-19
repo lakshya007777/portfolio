@@ -105,7 +105,6 @@ function computeStats(weeks: WeekData[]): ContributionStats {
 async function fetchContributions(): Promise<WeekData[]> {
   // Use GitHub's contribution calendar from the profile page via a proxy/scraping approach
   // We'll use the GitHub contributions API endpoint
-  const endDate = new Date()
   const startDate = new Date()
   startDate.setFullYear(startDate.getFullYear() - 1)
 

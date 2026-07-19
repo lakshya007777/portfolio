@@ -24,7 +24,7 @@ export function Header({ activeSection, isDark, toggleTheme }: HeaderProps) {
   const navHrefToId = (href: string) => href.replace('#', '')
 
   return (
-    <header className="sticky top-0 z-50 bg-page/80 backdrop-blur-md">
+    <header className={`sticky top-0 z-50 backdrop-blur-md ${menuOpen ? 'bg-page' : 'bg-page/80'}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         {/* Logo */}
         <a
@@ -60,16 +60,20 @@ export function Header({ activeSection, isDark, toggleTheme }: HeaderProps) {
         </div>
       </div>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile menu */}
       {menuOpen && (
         <div
-          className="fixed inset-0 top-[65px] z-40 bg-page lg:hidden"
+          className="lg:hidden overflow-y-auto"
+          style={{
+            height: 'calc(100vh - 65px)',
+            backgroundColor: 'var(--color-page)',
+          }}
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
         >
-          <nav className="flex flex-col gap-1 px-4 py-6">
-            {site.nav.map((item) => {
+          <nav className="flex flex-col gap-2 px-5 py-8" style={{ animation: 'mobileMenuSlideIn 0.3s ease-out' }}>
+            {site.nav.map((item, index) => {
               const id = navHrefToId(item.href)
               const isActive = activeSection === id
               return (
@@ -77,17 +81,40 @@ export function Header({ activeSection, isDark, toggleTheme }: HeaderProps) {
                   key={item.href}
                   href={item.href}
                   onClick={handleNavClick}
-                  className={`rounded-xl px-4 py-4 text-lg font-medium transition-colors ${
-                    isActive
-                      ? 'bg-surface text-accent shadow-sm'
-                      : 'text-text-primary hover:bg-surface/60'
-                  }`}
+                  className="mobile-nav-link"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '16px 20px',
+                    borderRadius: '16px',
+                    fontSize: '1.1rem',
+                    fontWeight: isActive ? 700 : 500,
+                    color: isActive ? 'var(--color-accent)' : 'var(--color-text-primary)',
+                    backgroundColor: isActive ? 'var(--color-surface)' : 'transparent',
+                    boxShadow: isActive ? '0 2px 12px rgba(0,0,0,0.06)' : 'none',
+                    border: isActive ? '1px solid var(--color-border)' : '1px solid transparent',
+                    transition: 'all 0.2s ease',
+                    textDecoration: 'none',
+                    animation: `mobileNavItemIn 0.35s ease-out ${index * 0.06}s both`,
+                  }}
                 >
+                  {isActive && (
+                    <span
+                      style={{
+                        width: '6px',
+                        height: '6px',
+                        borderRadius: '50%',
+                        backgroundColor: 'var(--color-accent)',
+                        flexShrink: 0,
+                      }}
+                    />
+                  )}
                   {item.label}
                 </a>
               )
             })}
-            <div className="mt-4">
+            <div className="mt-6" style={{ animation: `mobileNavItemIn 0.35s ease-out ${site.nav.length * 0.06}s both` }}>
               <FlowButton text="LET'S TALK" href="#contact" onClick={handleNavClick} className="w-full justify-center" />
             </div>
           </nav>
