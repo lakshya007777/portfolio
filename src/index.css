@@ -1,0 +1,560 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-page: #f0f2f5;
+  --color-surface: #ffffff;
+  --color-border: #e5e7eb;
+  --color-accent: #2f6bff;
+  --color-accent-hover: #2558e0;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-circle: #e8eaef;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+html.dark {
+  --color-page: #242626;
+  --color-surface: #242626;
+  --color-border: #334155;
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-circle: #334155;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-page);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@media (hover: hover) {
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.08);
+  }
+}
+
+/* ── 3D Service Card Animations ── */
+
+@keyframes float-card {
+
+  0%,
+  100% {
+    transform: perspective(800px) rotateY(-8deg) rotateX(4deg) translateY(0px);
+  }
+
+  50% {
+    transform: perspective(800px) rotateY(-8deg) rotateX(4deg) translateY(-12px);
+  }
+}
+
+@keyframes float-card-2 {
+
+  0%,
+  100% {
+    transform: perspective(800px) rotateY(6deg) rotateX(-3deg) translateY(0px);
+  }
+
+  50% {
+    transform: perspective(800px) rotateY(6deg) rotateX(-3deg) translateY(-10px);
+  }
+}
+
+@keyframes float-card-3 {
+
+  0%,
+  100% {
+    transform: perspective(800px) rotateY(-5deg) rotateX(5deg) translateY(0px);
+  }
+
+  50% {
+    transform: perspective(800px) rotateY(-5deg) rotateX(5deg) translateY(-14px);
+  }
+}
+
+@keyframes icon-spin {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(47, 107, 255, 0.15), 0 8px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  50% {
+    box-shadow: 0 0 35px rgba(47, 107, 255, 0.25), 0 12px 40px rgba(0, 0, 0, 0.12);
+  }
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(28px) rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg) translateX(28px) rotate(-360deg);
+  }
+}
+
+.card-3d-1 {
+  animation: float-card 4s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+.card-3d-2 {
+  animation: float-card-2 4.5s ease-in-out infinite 0.3s;
+  transform-style: preserve-3d;
+}
+
+.card-3d-3 {
+  animation: float-card-3 5s ease-in-out infinite 0.6s;
+  transform-style: preserve-3d;
+}
+
+.icon-3d-spin {
+  animation: icon-spin 6s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.glow-pulse {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.orbit-dot {
+  animation: orbit 8s linear infinite;
+}
+
+.orbit-dot-2 {
+  animation: orbit 6s linear infinite reverse;
+}
+
+/* ── Works Section — Expanding Hover Cards ── */
+
+.works-section {
+  background: var(--color-surface);
+  padding: 80px 0;
+}
+
+.works-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.works-header {
+  margin-bottom: 48px;
+}
+
+.works-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.works-subtitle {
+  margin: 8px 0 0;
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Marquee ── */
+
+.works-marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: 20px;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 20px 0 60px;
+}
+
+.works-marquee-group {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 20px;
+  min-width: 100%;
+  animation: scroll-x-reverse 35s linear infinite;
+}
+
+.works-marquee:hover .works-marquee-group {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-x-reverse {
+  from {
+    transform: translateX(calc(-100% - 20px));
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ── Card ── */
+
+.work-card {
+  position: relative;
+  width: 160px;
+  height: 120px;
+  border-radius: 22px;
+  background: var(--card-bg, #e8eaed);
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.4s ease,
+    box-shadow 0.4s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.work-card:hover {
+  width: 460px;
+  height: 480px;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 4px 20px rgba(0, 0, 0, 0.06);
+  z-index: 10;
+}
+
+/* ── Thumbnail ── */
+
+.work-card-thumb {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  transition: opacity 0.3s ease 0.15s;
+}
+
+.work-card:hover .work-card-thumb {
+  opacity: 0;
+  transition-delay: 0s;
+}
+
+.work-card-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Expanded content ── */
+
+.work-card-expanded {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.work-card:hover .work-card-expanded {
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: 0.18s;
+}
+
+/* ── Card info ── */
+
+.work-card-info {
+  padding: 28px 28px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.work-card:hover .work-card-info {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.25s;
+}
+
+.work-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.work-card-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.work-card-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.07);
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.work-card-desc {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.work-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  margin-top: 2px;
+  transition: gap 0.25s ease, color 0.25s ease;
+}
+
+.work-card-link:hover {
+  color: var(--color-accent-hover);
+  gap: 9px;
+}
+
+/* ── Preview image ── */
+
+.work-card-preview {
+  flex: 1;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+  margin: 0;
+  min-height: 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.work-card:hover .work-card-preview {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.3s;
+}
+
+.work-card-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.work-card:hover .work-card-preview-img:hover {
+  transform: scale(1.04);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 640px) {
+  .works-section {
+    padding: 48px 0;
+  }
+
+  .works-container {
+    padding: 0 16px;
+  }
+
+  .works-title {
+    font-size: 1.6rem;
+  }
+
+  .works-header {
+    margin-bottom: 32px;
+  }
+
+  .works-marquee {
+    padding: 10px 0 40px;
+  }
+
+  .work-card {
+    width: 120px;
+    height: 90px;
+    border-radius: 18px;
+  }
+
+  .work-card:hover {
+    width: min(360px, calc(100vw - 48px));
+    height: 400px;
+    border-radius: 20px;
+  }
+
+  .work-card-info {
+    padding: 20px 20px 12px;
+  }
+
+  .work-card-title {
+    font-size: 1.05rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .works-title {
+    font-size: 2.75rem;
+  }
+
+  .work-card {
+    width: 180px;
+    height: 140px;
+  }
+
+  .work-card:hover {
+    width: 520px;
+    height: 540px;
+  }
+
+  .work-card-info {
+    padding: 32px 32px 18px;
+  }
+
+  .work-card-title {
+    font-size: 1.35rem;
+  }
+
+  .work-card-desc {
+    font-size: 0.88rem;
+  }
+}
+
+/* ── Dark Mode Toggle (Uiverse) ── */
+.theme-checkbox {
+  display: none;
+}
+
+.theme-slider {
+  width: 60px;
+  height: 30px;
+  background-color: lightgray;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  border: 4px solid transparent;
+  transition: .3s;
+  box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.25) inset;
+  cursor: pointer;
+}
+
+.theme-slider::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  transform: translateX(-30px);
+  border-radius: 20px;
+  transition: .3s;
+  box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+}
+
+.theme-checkbox:checked~.theme-slider::before {
+  transform: translateX(30px);
+  box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+}
+
+.theme-checkbox:checked~.theme-slider {
+  background-color: #2196F3;
+}
+
+.theme-checkbox:active~.theme-slider::before {
+  transform: translate(0);
+}
+
+/* ── GitHub Contributions Graph ── */
+
+.github-cell:hover {
+  stroke-opacity: 1;
+  filter: brightness(1.2);
+  transform-origin: center;
+}
+
+.github-stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.github-stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+      transparent 0%,
+      rgba(47, 107, 255, 0.03) 50%,
+      transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.github-stat-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.github-graph-container {
+  scrollbar-width: none;
+}
+
+.github-graph-container::-webkit-scrollbar {
+  display: none;
+}
