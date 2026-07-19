@@ -33,7 +33,7 @@ export const site = {
     username: 'lakshya007777',
     href: 'https://github.com/lakshya007777',
   },
-  portrait: '/Portrait.png',
+  portrait: '/portrait.png',
   socials: [
     { label: 'GitHub', href: 'https://github.com/lakshya007777', type: 'github' },
   ] as SocialLink[],
